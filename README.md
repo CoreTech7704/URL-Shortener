@@ -112,10 +112,3 @@ This project is licensed under the **MIT License**.
 
 *Developed with ❤️ and caffeine ☕*
 
-```
-
----
-
-Would you like me to also generate a short **project description + tags** for your GitHub repo (for the “About” section at the top)?  
-It helps people discover your project more easily.
-```
