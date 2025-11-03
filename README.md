@@ -90,9 +90,9 @@ short-url-nodejs/
 * [x] Basic URL shortening
 * [x] MongoDB integration
 * [x] JWT setup
-* [ ] User login & signup pages
+* [x] User login & signup pages
 * [ ] Analytics for links
-* [ ] Frontend styling with Tailwind CSS
+* [ ] Frontend styling
 * [ ] Deployment to Render / Vercel
 
 ---
