@@ -4,9 +4,7 @@ function checkForAuthentication(req, res, next) {
   const tokenCookie = req.cookies?.token;
   req.user = null;
 
-  if (
-    !tokenCookie 
-  ) {
+  if (!tokenCookie) {
     return next();
   }
 
@@ -20,13 +18,13 @@ function checkForAuthentication(req, res, next) {
 function restrictTo(roles) {
   return function (req, res, next) {
     if (!req.user) {
-      return res.redirect('/login');
+      return res.redirect("/login");
     }
-    if(!roles.includes(req.user.role) ) {
+    if (!roles.includes(req.user.role)) {
       return res.end("Access Denied. Unauthorized User");
     }
     return next();
-}
+  };
 }
 
 module.exports = {
