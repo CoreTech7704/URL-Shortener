@@ -110,5 +110,4 @@ This project is licensed under the **MIT License**.
 
 ---
 
-*Developed with ❤️ and caffeine ☕*
-
+*_Developed with ❤️, chai ☕, and endless curiosity 💡_*
