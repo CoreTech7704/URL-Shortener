@@ -1,5 +1,6 @@
 const { getUser } = require("../service/auth");
 
+// Authentication Middleware
 function checkForAuthentication(req, res, next) {
   const tokenCookie = req.cookies?.token;
   req.user = null;
@@ -15,6 +16,7 @@ function checkForAuthentication(req, res, next) {
   return next();
 }
 
+// Authorization Middleware
 function restrictTo(roles) {
   return function (req, res, next) {
     if (!req.user) {

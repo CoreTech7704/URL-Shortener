@@ -1,20 +1,23 @@
+# 🚀 Advanced URL Shortener (Node.js + MongoDB)
 
-# 🚀 URL Shortener (Node.js + MongoDB)
+A **full-featured URL Shortener** web app built with **Node.js**, **Express**, and **MongoDB**, featuring **user authentication**, **role-based authorization**, and an **EJS-based dashboard**.
 
-A simple and efficient **URL Shortener** built with **Node.js**, **Express**, and **MongoDB**.  
-This project allows users to shorten long URLs and access them through custom short links.
+This project allows users to shorten long URLs, manage their own links, and for admins to view and control all URLs in the system.
 
-> ⚠️ **Note:** This project is still under development. New features, enhancements, and fixes are being added regularly.
+> 🧠 **Now includes:** Authentication, Authorization, Role-based Routing (Admin / User)
 
 ---
 
 ## 🧩 Features
 
 - 🔗 Shorten long URLs easily  
-- 🧭 Redirect users to the original link  
+- 🧭 Redirect users instantly to the original links  
 - 💾 Persistent storage using MongoDB  
-- 🔒 JWT-based authentication (in progress)  
-- 🌐 EJS-based frontend (in progress)
+- 🔐 JWT + Cookie-based Authentication  
+- 🧑‍💻 Role-based Authorization (`NORMAL` and `ADMIN`)  
+- 🧭 Admin Dashboard — view all shortened URLs  
+- 🌐 EJS Frontend with server-side rendering  
+- 🧠 Visit tracking (timestamp-based history)
 
 ---
 
@@ -23,10 +26,11 @@ This project allows users to shorten long URLs and access them through custom sh
 | Layer | Technology |
 |-------|-------------|
 | Backend | Node.js, Express.js |
-| Database | MongoDB |
-| Authentication | JSON Web Token (JWT) |
+| Database | MongoDB with Mongoose |
+| Authentication | JSON Web Token (JWT) + Cookies |
+| Authorization | Role-based middleware |
 | View Engine | EJS |
-| Styling | Tailwind CSS (planned) |
+| Styling | Tailwind CSS *(planned)* |
 
 ---
 
@@ -36,78 +40,60 @@ This project allows users to shorten long URLs and access them through custom sh
 ```bash
 git clone https://github.com/CoreTech7704/URL-Shortener.git
 cd URL-Shortener
-````
-
-### 2. Install dependencies
-
-```bash
-npm install
 ```
 
-### 3. Configure environment variables
+2. Install dependencies
+npm install
 
-Create a `.env` file in the project root and add:
+3. Setup environment variables
 
-```env
+Create a .env file in the project root:
+
 PORT=8001
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_256_bit_secret
-```
 
-### 4. Start the server
-
-```bash
+4. Start the development server
 npm start
-```
 
-Server will start at:
 
-```
+Then open in browser:
+
 http://localhost:8001
-```
 
----
-
-## 📦 Project Structure
-
-```
+📦 Project Structure
 short-url-nodejs/
 │
-├── controllers/       # Route controllers
-├── models/            # Mongoose models
-├── routes/            # Express routes
-├── service/           # Utility and helper functions (e.g. auth.js)
-├── views/             # EJS templates
+├── controllers/       # Route controllers (optional layer)
+├── middlewares/       # Auth & role-based access control
+├── models/            # Mongoose schemas (User, URL)
+├── routes/            # Express routes (user, url, static, admin)
+├── views/             # EJS templates (login, signup, home)
 ├── public/            # Static assets (CSS, JS)
-├── app.js             # Main application entry
-└── package.json       # Dependencies and scripts
-```
+├── index.js             # Main server file
+└── package.json       # Project dependencies and scripts
 
----
+🧭 Roadmap
 
-## 🧭 Roadmap
+ Basic URL shortening
 
-* [x] Basic URL shortening
-* [x] MongoDB integration
-* [x] JWT setup
-* [x] User login & signup pages
-* [ ] Analytics for links
-* [ ] Frontend styling
-* [ ] Deployment to Render / Vercel
+ MongoDB integration
 
----
+ JWT setup
 
-## 👨‍💻 Author
+ User login & signup pages
 
-**CoreTech7704**
-📧 *GitHub:* [CoreTech7704](https://github.com/CoreTech7704)
+ Role-based access (Admin / Normal)
 
----
+ Admin dashboard showing all URLs
 
-## 📄 License
+👨‍💻 Author
 
-This project is licensed under the **MIT License**.
+CoreTech7704
+📧 GitHub: CoreTech7704
 
----
+📄 License
 
-*_Developed with ❤️, chai ☕, and endless curiosity 💡_*
+This project is licensed under the MIT License.
+
+Developed with ❤️, ☕, and endless curiosity 💡
