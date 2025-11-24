@@ -1,223 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>URL Shortener</title>
-    <style>
-      /* 🌐 Base styles */
-      body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        margin: 0;
-        padding: 0;
-        background: #f4f6f8;
-        color: #333;
-      }
+<%- include("partials/header") %>
 
-      header {
-        background: #0078d7;
-        color: #fff;
-        text-align: center;
-        padding: 1rem;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      }
+<% if (typeof error !== "undefined") { %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Error:</strong> <%= error %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
 
-      h1 {
-        margin: 0;
-        font-size: 1.8rem;
-        letter-spacing: 0.5px;
-      }
+<div class="card p-4 shadow-sm mx-auto" style="max-width: 600px">
+  <p class="text-muted mb-2">🔔 Auto-deleted after <strong>30 days</strong></p>
 
-      /* ✏️ Form styling */
-      .form-container {
-        background: #fff;
-        max-width: 600px;
-        margin: 2rem auto;
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      label {
-        font-weight: 500;
-        display: block;
-        margin-bottom: 0.5rem;
-      }
-
-      input[type="text"] {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        font-size: 1rem;
-        margin-bottom: 1rem;
-      }
-
-      button {
-        background-color: #0078d7;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 1rem;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: background 0.2s ease;
-      }
-
-      button:hover {
-        background-color: #005ea3;
-      }
-
-      /* 📋 Table styling */
-      table {
-        width: 90%;
-        max-width: 900px;
-        margin: 2rem auto;
-        border-collapse: collapse;
-        background: #fff;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      th,
-      td {
-        padding: 12px 15px;
-        text-align: left;
-        border-bottom: 1px solid #eee;
-      }
-
-      th {
-        background-color: #0078d7;
-        color: white;
-        font-weight: 600;
-      }
-
-      tr:hover {
-        background-color: #f1f1f1;
-      }
-
-      /* 💬 URL display section */
-      .generated-url {
-        text-align: center;
-        margin-top: 1rem;
-        background: #e6f4ff;
-        padding: 10px;
-        border-radius: 8px;
-        width: fit-content;
-        margin-left: auto;
-        margin-right: auto;
-        color: #004c99;
-      }
-
-      /* 📱 Responsive */
-      @media (max-width: 600px) {
-        .form-container {
-          margin: 1rem;
-          padding: 1.5rem;
-        }
-        table {
-          width: 100%;
-          font-size: 0.9rem;
-        }
-        th,
-        td {
-          padding: 8px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>URL Shortener</h1>
-    </header>
-
-    <% if (locals.id) { %>
-    <div class="generated-url">
-      <strong>Short URL:</strong>
-      <a href="http://localhost:8001/url/<%= id %>" target="_blank">
-        http://localhost:8001/url/<%= id %>
-      </a>
+  <form method="POST" action="/url">
+    <div class="mb-3">
+      <label class="form-label fw-bold">Enter Your URL</label>
+      <input
+        type="text"
+        class="form-control"
+        name="url"
+        placeholder="https://example.com"
+        required
+      />
     </div>
-    <% } %>
+    <button type="submit" class="btn btn-primary w-100">Generate</button>
+  </form>
+</div>
 
-    <div class="form-container">
-      <form method="POST" action="/url">
-        <label for="url">Enter Your Original URL</label>
-        <input
-          type="text"
-          id="url"
-          name="url"
-          placeholder="https://example.com"
-          required
-        />
-        <button type="submit">Generate</button>
-      </form>
-    </div>
+<% if (urls && urls.length > 0) { %>
+<table
+  class="table table-hover table-bordered text-center mt-4 shadow-sm bg-white"
+>
+  <thead class="table-primary text-dark">
+    <tr>
+      <th>S. No</th>
+      <th>Short ID</th>
+      <th>URL</th>
+      <th>Clicks</th>
+      <th>Days Left</th>
+      <th>Action</th>
+    </tr>
+  </thead>
 
-    <div>
-      <% if (locals.urls && urls.length > 0) { %>
-      <table>
-        <thead>
-          <tr>
-            <th>S. No</th>
-            <th>Short ID</th>
-            <th>Redirect URL</th>
-            <th>Clicks</th>
-            <th>Action</th>
-            <!-- NEW COLUMN -->
-          </tr>
-        </thead>
-        <tbody>
-          <% urls.forEach((url, index) => { %>
-          <tr>
-            <td><%= index + 1 %></td>
-            <td>
-              <a
-                href="http://localhost:8001/url/<%= url.shortId %>"
-                target="_blank"
-                ><%= url.shortId %></a
-              >
-            </td>
-            <td>
-              <a href="<%= url.redirectURL %>" target="_blank">
-                <%= url.redirectURL %>
-              </a>
-            </td>
-            <td><%= url.visitHistory.length %></td>
-            <td>
-              <!-- Delete Button -->
-              <form
-                action="/url/delete/<%= url.shortId %>"
-                method="POST"
-                style="display: inline-block"
-              >
-                <button
-                  type="submit"
-                  style="
-                    background-color: #d9534f;
-                    border: none;
-                    padding: 6px 10px;
-                    color: white;
-                    border-radius: 6px;
-                    cursor: pointer;
-                  "
-                  onclick="return confirm('Are you sure you want to delete this URL?');"
-                >
-                  Delete
-                </button>
-              </form>
-            </td>
-          </tr>
-          <% }) %>
-        </tbody>
-      </table>
-      <% } else { %>
-      <p style="text-align: center; color: #666; margin-top: 2rem">
-        No URLs found yet. Create one above 👆
-      </p>
-      <% } %>
-    </div>
-  </body>
-</html>
+  <tbody>
+    <% urls.forEach((url, index) => { const created = new Date(url.createdAt);
+    const ageDays = Math.floor((Date.now() - created) / (1000*60*60*24)); const
+    left = 30 - ageDays; %>
+    <tr>
+      <td><%= index+1 %></td>
+      <td>
+        <a href="/url/<%= url.shortId %>" target="_blank"><%= url.shortId %></a>
+        <button
+          class="btn btn-sm btn-outline-primary copy-btn"
+          data-url="http://localhost:8001/url/<%= url.shortId %>"
+        >
+          Copy
+        </button>
+      </td>
+      <td>
+        <a href="<%= url.redirectURL %>" target="_blank"
+          ><%= url.redirectURL %></a
+        >
+      </td>
+      <td><%= url.visitHistory.length %></td>
+      <td class="<%= left>0?'text-success':'text-danger'%> fw-bold">
+        <%= left>0?left+' days':'Expired' %>
+      </td>
+      <td>
+        <form action="/url/delete/<%= url.shortId %>" method="POST">
+          <button class="btn btn-danger btn-sm">Delete</button>
+        </form>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+<% } %> <%- include("partials/footer") %>

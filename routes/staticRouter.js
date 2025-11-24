@@ -4,24 +4,33 @@ const { restrictTo } = require("../middlewares/auth");
 
 const router = express.Router();
 
+// ADMIN View: show all URLs
 router.get("/admin/urls", restrictTo(["ADMIN"]), async (req, res) => {
   const allUrls = await URL.find({});
-  console.log("Admin URL Count:", allUrls.length);
-  console.log(allUrls);
-  return res.render("home", { urls: allUrls });
+
+  return res.render("home", {
+    urls: allUrls,
+    id: null,
+    userName: req.user.email.split("@")[0], // 👈 Always pass userName
+  });
 });
 
+// NORMAL USER View: show only user URLs
 router.get("/", restrictTo(["NORMAL", "ADMIN"]), async (req, res) => {
-  // Step 1: Check if the logged-in user is admin
   if (req.user.role === "ADMIN") {
     return res.redirect("/admin/urls");
   }
 
-  // Step 2: Normal user logic
-  const allurls = await URL.find({ createdBy: req.user._id });
-  return res.render("home", { urls: allurls });
+  const allUrls = await URL.find({ createdBy: req.user._id });
+
+  return res.render("home", {
+    urls: allUrls,
+    id: null,
+    userName: req.user.email.split("@")[0], 
+  });
 });
 
+// Auth pages
 router.get("/signup", (req, res) => {
   return res.render("signup");
 });
