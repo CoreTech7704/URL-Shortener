@@ -31,12 +31,17 @@ router.get("/", restrictTo(["NORMAL", "ADMIN"]), async (req, res) => {
 });
 
 // Auth pages
-router.get("/signup", (req, res) => {
-  return res.render("signup");
+router.get("/auth", (req, res) => {
+  return res.render("auth", { error: null, mode: "login" });
 });
 
 router.get("/login", (req, res) => {
-  return res.render("login");
+  return res.redirect("/auth");
 });
+
+router.get("/signup", (req, res) => {
+  return res.redirect("/auth");
+});
+
 
 module.exports = router;
