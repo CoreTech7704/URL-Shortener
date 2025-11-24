@@ -29,5 +29,47 @@
     });
   </script>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    let chartInstance;
+
+async function openAnalyticsModal(shortId) {
+  const res = await fetch(`/url/analytics/${shortId}`);
+  const data = await res.json();
+
+  const groupedClicks = {};
+
+  data.analytics.forEach(entry => {
+    const date = new Date(entry.timestamp).toLocaleDateString();
+    groupedClicks[date] = (groupedClicks[date] || 0) + 1;
+  });
+
+  const labels = Object.keys(groupedClicks);
+  const values = Object.values(groupedClicks);
+
+  const ctx = document.getElementById("analyticsChart").getContext("2d");
+
+  if (chartInstance) {
+    chartInstance.destroy();
+  }
+
+  chartInstance = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        label: "Clicks per Day",
+        data: values,
+        borderWidth: 2,
+        tension: 0.3
+      }]
+    }
+  });
+
+  new bootstrap.Modal(document.getElementById("analyticsModal")).show();
+}
+
+</script>
 </body>
 </html>

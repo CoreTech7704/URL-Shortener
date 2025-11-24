@@ -1,10 +1,13 @@
-<%- include("partials/header") %>
-
-<% if (typeof error !== "undefined") { %>
-  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong>Error:</strong> <%= error %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
+<%- include("partials/header") %> <% if (typeof error !== "undefined") { %>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>Error:</strong> <%= error %>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
 <% } %>
 
 <div class="card p-4 shadow-sm mx-auto" style="max-width: 600px">
@@ -64,13 +67,42 @@
       <td class="<%= left>0?'text-success':'text-danger'%> fw-bold">
         <%= left>0?left+' days':'Expired' %>
       </td>
-      <td>
-        <form action="/url/delete/<%= url.shortId %>" method="POST">
-          <button class="btn btn-danger btn-sm">Delete</button>
-        </form>
+      <td class="text-center">
+        <div class="btn-group">
+          <form action="/url/delete/<%= url.shortId %>" method="POST">
+            <button class="btn btn-sm btn-danger">🗑 Delete</button>
+          </form>
+
+          <button
+            class="btn btn-sm btn-info"
+            onclick="openAnalyticsModal('<%= url.shortId %>')"
+          >
+            📈 Analytics
+          </button>
+        </div>
       </td>
     </tr>
     <% }) %>
   </tbody>
 </table>
+
+<!-- Analytics Modal -->
+<div class="modal fade" id="analyticsModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">URL Analytics</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <canvas id="analyticsChart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
 <% } %> <%- include("partials/footer") %>
