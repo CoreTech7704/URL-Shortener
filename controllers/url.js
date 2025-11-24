@@ -27,7 +27,24 @@ async function handleGetAnalytics(req, res) {
   });
 }
 
+async function handleDeleteShortURL(req, res) {
+  try {
+    const { shortId } = req.params;
+
+    await URL.deleteOne({
+      shortId,
+      createdBy: req.user._id, // ensures user can delete only their own
+    });
+
+    return res.redirect("/");
+  } catch (error) {
+    console.error("Error deleting URL:", error);
+    return res.status(500).send("Something went wrong during deletion.");
+  }
+}
+
 module.exports = {
   handleGenerateNewShortURL,
   handleGetAnalytics,
+  handleDeleteShortURL,
 };

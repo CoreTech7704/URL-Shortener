@@ -11,7 +11,7 @@ const urlSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    visitHistory: [{ timestamp: { type: Number } }],
+    visitHistory: [{ timestamp: { type: Date, default: Date.now } }],
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "users",
@@ -19,6 +19,8 @@ const urlSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+urlSchema.index({ createdAt: 1 }, { expireAfterSeconds: 60 * 60 * 24 * 30 });
 
 const URL = mongoose.model("url", urlSchema);
 
