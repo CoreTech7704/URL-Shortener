@@ -1,0 +1,103 @@
+/* Background similar to home/auth */
+body {
+  background-image: linear-gradient(-225deg, #22E1FF 0%, #1D8FE1 48%, #625EB1 100%);
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Center card */
+.reset-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.reset-card {
+  background: #fff;
+  padding: 30px 50px;
+  width: 300px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.10),
+              0 10px 10px rgba(0,0,0,0.05);
+}
+
+.reset-icon {
+  width: 80px;
+  margin-bottom: 0px;
+  opacity: 0.9;
+}
+
+.reset-card h2 {
+  margin-bottom: 4px;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.reset-card p {
+  margin-bottom: 25px;
+  color: #555;
+  font-size: 14px;
+}
+
+/* Inputs same as auth */
+.reset-card input {
+  width: 90%;
+  border: none;
+  padding: 12px 15px;
+  margin: 10px 0;
+  background: #eee;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px,
+              rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+/* Button style matching auth */
+.reset-card button {
+  margin-top: 15px;
+  width: 100%;
+  padding: 12px;
+  background: #1D8FE1;
+  color: #fff;
+  border: none;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  text-transform: uppercase;
+  transition: 0.2s ease;
+}
+
+.reset-card button:hover {
+  background: #1472b8;
+}
+
+/* Error message */
+.error-box {
+  background: #ffdedf;
+  color: #d60000;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+/* Back link */
+.back-link {
+  display: block;
+  margin-top: 15px;
+  color: #1D8FE1;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}

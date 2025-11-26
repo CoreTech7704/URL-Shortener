@@ -8,12 +8,15 @@ const router = express.Router();
 
 // Auth page
 router.get("/auth", (req, res) => {
-  return res.render("auth", { error: null, mode: "login" });
+  res.render("auth", { error: null, mode: "login", resetToken: null });
 });
 
 // Old redirects
 router.get("/login", (req, res) => res.redirect("/auth"));
-router.get("/signup", (req, res) => res.redirect("/auth"));
+router.get("/signup", (req, res) => {
+  return res.render("auth", { error: null, mode: "signup", resetToken: null });
+});
+
 
 /* ---------------- PROTECTED ROUTES ---------------- */
 

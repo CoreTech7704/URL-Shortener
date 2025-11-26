@@ -4,49 +4,26 @@
     <meta charset="UTF-8" />
     <title>Auth | URL Shortener</title>
 
-    <!-- Font + Icons (from original template) -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
     <link rel="stylesheet" href="/css/auth.css" />
   </head>
+
   <body>
     <div class="container" id="container">
+
       <!-- SIGN UP FORM -->
       <div class="form-container sign-up-container">
         <form action="/user/signup" method="POST">
           <h1>Sign Up</h1>
 
           <span>use your email for registration</span>
-
-          <!-- Full Name -->
           <input type="text" name="name" placeholder="Full Name" required />
-
-          <!-- Email -->
           <input type="email" name="email" placeholder="Email" required />
+          <input type="password" name="password" placeholder="Password" required />
+          <input type="password" name="confirmPassword" placeholder="Confirm Password" required />
 
-          <!-- Password -->
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-          />
-
-          <!-- Confirm Password -->
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm Password"
-            required
-          />
-
-          <% if (typeof error !== "undefined" && error && error.type ===
-          "signup") { %>
-          <p style="color: #ff4b2b; font-size: 0.9rem; margin-bottom: 8px">
-            <%= error.message %>
-          </p>
+          <% if (error && error.type === "signup") { %>
+          <p style="color:#ff4b2b; font-size:0.9rem;"><%= error.message %></p>
           <% } %>
 
           <button type="submit">Create Account</button>
@@ -57,60 +34,67 @@
       <div class="form-container sign-in-container">
         <form action="/user/login" method="POST">
           <h1>Log In</h1>
-
           <span>use your account</span>
 
           <input type="email" name="email" placeholder="Email" required />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-          />
+          <input type="password" name="password" placeholder="Password" required />
 
-          <% if (typeof error !== "undefined" && error && error.type ===
-          "login") { %>
-          <p style="color: #ff4b2b; font-size: 0.9rem; margin-bottom: 8px">
-            <%= error.message %>
-          </p>
+          <a href="#" id="forgotPasswordLink" style="font-size:0.9rem;">Forgot Password?</a>
+
+          <% if (error && error.type === "login") { %>
+          <p style="color:#ff4b2b; font-size:0.9rem;"><%= error.message %></p>
           <% } %>
 
           <button type="submit">Log In</button>
         </form>
       </div>
 
-      <!-- OVERLAY PART -->
+      <!-- FORGOT PASSWORD FORM -->
+      <div class="form-container forgot-password-container">
+        <form action="/user/forgot-password" method="POST">
+          <h1>Forgot Password</h1>
+          <span>Enter your email to reset password</span>
+
+          <input type="email" name="email" placeholder="Email" required />
+
+          <% if (error && error.type === "forgot") { %>
+          <p style="color:#ff4b2b; font-size:0.9rem;"><%= error.message %></p>
+          <% } %>
+
+          <button type="submit">Send Reset Link</button>
+
+          <a href="#" id="backToLogin" style="margin-top:10px;">← Back to Login</a>
+        </form>
+      </div>
+
+      <!-- OVERLAY -->
       <div class="overlay-container">
         <div class="overlay">
+
           <div class="overlay-panel overlay-left">
             <h1>Welcome Back!</h1>
             <p>Enter your credentials to login.</p>
             <span>Already have an account?</span>
             <button class="ghost" id="signIn">Log In</button>
           </div>
+
           <div class="overlay-panel overlay-right">
-            <h1>Let's Register Account!</h1>
-            <p>Enter your information to create an account.</p>
-            <span>Don’t have an account yet?</span>
-            <button class="ghost" id="signUp">Create Account</button>
+            <h1>Lets's Register Account</h1>
+            <p>Enter Your information to create an acoount.</p>
+            <span>Don't have an account yet?</span>
+            <button class="ghost" id="signUp">CREATE ACCOUNT</button>
           </div>
+
         </div>
       </div>
     </div>
 
-    <!-- Script from ZIP -->
-    <script src="/js/auth.js"></script>
-
-    <!-- Optional: open signup by default if server says so -->
-    <% if (typeof mode !== "undefined" && mode === "signup") { %>
+    <!-- Pass server mode to JS -->
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        document
-          .getElementById("container")
-          .classList.add("right-panel-active");
-      });
+      const mode = "<%= mode || 'login' %>";
     </script>
-    <% } %>
+
+    <!-- Auth Logic -->
     <script src="/js/auth.js"></script>
   </body>
 </html>

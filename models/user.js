@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { required } = require("nodemon/lib/config");
 
 const userSchema = new mongoose.Schema(
   {
@@ -7,24 +6,36 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+
     email: {
       type: String,
       required: true,
       unique: true,
     },
+
     role: {
       type: String,
-      required: true,
       default: "NORMAL",
     },
+
     password: {
       type: String,
       required: true,
+    },
+
+    // 🔐 Forgot Password Token
+    resetToken: {
+      type: String,
+      default: null,
+    },
+
+    // ⏳ Expiry: Valid for 15 min
+    resetTokenExpiry: {
+      type: Date,
+      default: null,
     },
   },
   { timestamps: true }
 );
 
-const User = mongoose.model("user", userSchema);
-
-module.exports = User;
+module.exports = mongoose.model("user", userSchema);
