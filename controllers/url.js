@@ -1,14 +1,13 @@
-const shortid = require("shortid");
+const { nanoid } = require("nanoid");
 const URL = require("../models/url");
 
 async function handleGenerateNewShortURL(req, res) {
   const userUrl = req.body.url;
   const userName = req.user.email.split("@")[0];
-
-  // Pre-fetch URLs for re-render in case of errors
+  
   const urls = await URL.find({ createdBy: req.user._id });
 
-  // Validate required input
+  //Validate input
   if (!userUrl || userUrl.trim() === "") {
     return res.render("home", {
       error: "URL is required!",
@@ -18,13 +17,46 @@ async function handleGenerateNewShortURL(req, res) {
     });
   }
 
-  // Normalize URL + Auto-add https if missing
-  let fullUrl = userUrl.trim();
-  if (!/^https?:\/\//i.test(fullUrl)) {
-    fullUrl = "https://" + fullUrl;
+  //Parse URL
+  let parsedUrl;
+  try {
+    parsedUrl = new URL(userUrl.trim());
+  } catch {
+    return res.render("home", {
+      error: "Invalid URL format!",
+      urls,
+      userName,
+      id: null,
+    });
   }
 
-  // Block malicious URLs only
+  //Protocol whitelist
+  if (!["http:", "https:"].includes(parsedUrl.protocol)) {
+    return res.render("home", {
+      error: "Only HTTP/HTTPS URLs allowed!",
+      urls,
+      userName,
+      id: null,
+    });
+  }
+
+  const fullUrl = parsedUrl.toString();
+
+  //Duplicate URL prevention
+  const existing = await URL.findOne({
+    redirectURL: fullUrl,
+    createdBy: req.user._id,
+  });
+
+  if (existing) {
+    return res.render("home", {
+      id: existing.shortId,
+      urls,
+      userName,
+    });
+  }
+
+  //Extra malicious defense
   const lowerUrl = fullUrl.toLowerCase();
   if (
     lowerUrl.startsWith("javascript:") ||
@@ -39,8 +71,12 @@ async function handleGenerateNewShortURL(req, res) {
     });
   }
 
-  // Create short ID and save to DB
-  const shortID = shortid();
+  // Generate short ID
+  let shortID;
+  do {
+    shortID = nanoid(7);
+  } while (await URL.exists({ shortId: shortID }));
+
   await URL.create({
     shortId: shortID,
     redirectURL: fullUrl,
@@ -48,7 +84,6 @@ async function handleGenerateNewShortURL(req, res) {
     createdBy: req.user._id,
   });
 
-  // Update url list after success
   const updatedUrls = await URL.find({ createdBy: req.user._id });
 
   return res.render("home", {
