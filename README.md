@@ -44,7 +44,7 @@ This project goes beyond simple CRUD to show real-world backend engineering tech
 
 | Layer | Technology |
 |-------|-------------|
-| Backend | Node.js, Express.js |
+| Backend | Node.js |
 | Framework | Express.js |
 | Database | MongoDB with Mongoose |
 | Authentication | JSON Web Token (JWT) + Cookies |
@@ -65,7 +65,7 @@ URL-Shortener/
 ├── models/             # Mongoose schemas
 ├── public/             # Static assets
 ├── routes/             # Express routes
-├── serviece/           # authentication serviece
+├── serviece/           # authentication services
 ├── views/              # EJS templates
 ├── connect.js          # MongoDB connection
 ├── index.js            # App entry point
@@ -142,6 +142,7 @@ This project is licensed under the MIT License.
 
 ## Closing Note
 
-Constructed with a strong emphasis on practical backend engineering, curiosity, and discipline.  
- A strong foundation, not merely a demonstration.   
+Built with a strong emphasis on practical backend engineering, discipline, and real-world security considerations.  
+A solid foundation not merely a demonstration.
+
 Developed with ❤️, ☕, and endless curiosity 💡
