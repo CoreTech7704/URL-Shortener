@@ -1,99 +1,145 @@
-# 🚀 Advanced URL Shortener (Node.js + MongoDB)
+# 🚀 Advanced URL Shortener — v1.5.0
 
-A **full-featured URL Shortener** web app built with **Node.js**, **Express**, and **MongoDB**, featuring **user authentication**, **role-based authorization**, and an **EJS-based dashboard**.
+Node.js · Express · MongoDB · EJS · Auth · Security-Hardened
 
-This project allows users to shorten long URLs, manage their own links, and for admins to view and control all URLs in the system.
+A production-ready URL Shortener built with Node.js, Express, and MongoDB, featuring authentication, role-based authorization, rate limiting, and a secure server-rendered dashboard using EJS.
 
-> 🧠 **Now includes:** Authentication, Authorization, Role-based Routing (Admin / User)
+This project demonstrates real-world backend engineering practices, not just basic CRUD.
+
+---
+
+## ✨ Highlights
+- 🔐 JWT + Cookie-based Authentication
+- 🧑‍💻 Role-Based Authorization (NORMAL, ADMIN)
+- 🚦 Rate-Limited URL Creation (abuse protection)
+- 🧠 Secure URL Validation (protocol whitelisting)
+- 🧾 Duplicate URL Prevention
+- 📊 Click Analytics (timestamp-based)
+- 🛡️ Security Hardened
+- Helmet headers
+- Payload size limits
+- Secure ID generation (nanoid)
+- Zero known npm vulnerabilities
+- 🌐 Server-Side Rendering (EJS)
+- 🚀 Railway-ready deployment
 
 ---
 
 ## 🧩 Features
 
-- 🔗 Shorten long URLs easily  
-- 🧭 Redirect users instantly to the original links  
-- 💾 Persistent storage using MongoDB  
-- 🔐 JWT + Cookie-based Authentication  
-- 🧑‍💻 Role-based Authorization (`NORMAL` and `ADMIN`)  
-- 🧭 Admin Dashboard — view all shortened URLs  
-- 🌐 EJS Frontend with server-side rendering  
-- 🧠 Visit tracking (timestamp-based history)
+- 🔗 Shorten long URLs
+- 🔁 Instant redirection
+- 👤 User authentication (login / signup)
+- 🧑‍💻 User dashboard — manage your URLs
+- 🧭 Admin dashboard — manage all URLs
+- 🗑️ Delete URLs with access control
+- 📈 Track visit history (timestamps)
+- 🔐 Protected routes & middleware
+- ⚠️ Graceful error handling (404 / invalid URLs)
 
 ---
 
 ## 🛠️ Tech Stack
 
+
 | Layer | Technology |
 |-------|-------------|
 | Backend | Node.js, Express.js |
+| Framework | Express.js |
 | Database | MongoDB with Mongoose |
 | Authentication | JSON Web Token (JWT) + Cookies |
 | Authorization | Role-based middleware |
 | View Engine | EJS |
-| Styling | Tailwind CSS *(planned)* |
+| Security | Helmet, Rate Limiting |
+| ID Generation | nanoid |
+| Styling | Tailwind CSS |
 
 ---
 
-## ⚙️ Installation
+## 📦 Project Structure
+URL-Shortener/
+│
+├── controllers/        # Business logic
+├── middlewares/        # Auth & role guards
+├── models/             # Mongoose schemas
+├── public/             # Static assets
+├── routes/             # Express routes
+├── serviece/           # authentication serviece
+├── views/              # EJS templates
+├── connect.js          # MongoDB connection
+├── index.js            # App entry point
+├── package.json
+└── README.md
 
-### 1. Clone the repository
+---
+
+## ⚙️ Installation & Setup
+
+1️⃣ Clone the repository
 ```bash
 git clone https://github.com/CoreTech7704/URL-Shortener.git
 cd URL-Shortener
 ```
 
-2. Install dependencies
+2️⃣ Install dependencies
+```bash
 npm install
+```
 
-3. Setup environment variables
-
+3️⃣ Environment variables
 Create a .env file in the project root:
-
+```bash
 PORT=8001
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_256_bit_secret
+```
 
-4. Start the development server
+4️⃣ Start the server
+```bash
 npm start
+```
+Visit: http://localhost:8001
 
+---
 
-Then open in browser:
+## 🔐 Security Considerations
 
-http://localhost:8001
+This project follows backend security best practices:
+- ✅ Payload size limits (10kb)
+- ✅ Rate limiting on URL creation
+- ✅ Secure, collision-safe ID generation
+- ✅ URL protocol whitelisting (http, https)
+- ✅ Auth & authorization enforced on protected routes
+- ✅ Helmet security headers
+- ✅ Zero known npm audit vulnerabilities
 
-📦 Project Structure
-short-url-nodejs/
-│
-├── controllers/       # Route controllers (optional layer)
-├── middlewares/       # Auth & role-based access control
-├── models/            # Mongoose schemas (User, URL)
-├── routes/            # Express routes (user, url, static, admin)
-├── views/             # EJS templates (login, signup, home)
-├── public/            # Static assets (CSS, JS)
-├── index.js             # Main server file
-└── package.json       # Project dependencies and scripts
+---
 
-🧭 Roadmap
+## 🚀 Deployment
 
- Basic URL shortening
+The project is ready for Railway deployment.
+Key requirements:
+- Node.js ≥ 18
+- MongoDB Atlas or Railway MongoDB plugin
+- Environment variables configured in Railway dashboard
 
- MongoDB integration
+---
 
- JWT setup
+## 👨‍💻 Author
 
- User login & signup pages
+CoreTech7704(Sarvam Patel)
+GitHub: https://github.com/CoreTech7704
 
- Role-based access (Admin / Normal)
+---
 
- Admin dashboard showing all URLs
-
-👨‍💻 Author
-
-CoreTech7704
-📧 GitHub: CoreTech7704
-
-📄 License
+## 📄 License
 
 This project is licensed under the MIT License.
 
+---
+
+## ❤️ Closing Note
+
+Built with curiosity, discipline, and a strong focus on real-world backend engineering.
+Not just a demo — a solid foundation.
 Developed with ❤️, ☕, and endless curiosity 💡
