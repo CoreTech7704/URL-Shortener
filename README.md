@@ -2,9 +2,9 @@
 
 Node.js · Express · MongoDB · EJS · Auth · Security-Hardened
 
-A production-ready URL Shortener built with Node.js, Express, and MongoDB, featuring authentication, role-based authorization, rate limiting, and a secure server-rendered dashboard using EJS.
+Using Node.js, Express, and MongoDB, this production-ready URL shortener offers rate limiting, role-based authorization, authentication, and a safe server-rendered dashboard with EJS.
 
-This project demonstrates real-world backend engineering practices, not just basic CRUD.
+This project goes beyond simple CRUD to show real-world backend engineering techniques.
 
 ---
 
@@ -16,10 +16,10 @@ This project demonstrates real-world backend engineering practices, not just bas
 - 🧾 Duplicate URL Prevention
 - 📊 Click Analytics (timestamp-based)
 - 🛡️ Security Hardened
-- Helmet headers
-- Payload size limits
-- Secure ID generation (nanoid)
-- Zero known npm vulnerabilities
+    - Helmet headers
+    - Payload size limits
+    - Secure ID generation (nanoid)
+    - Zero known npm vulnerabilities
 - 🌐 Server-Side Rendering (EJS)
 - 🚀 Railway-ready deployment
 
@@ -57,6 +57,7 @@ This project demonstrates real-world backend engineering practices, not just bas
 ---
 
 ## 📦 Project Structure
+```bash
 URL-Shortener/
 │
 ├── controllers/        # Business logic
@@ -70,6 +71,7 @@ URL-Shortener/
 ├── index.js            # App entry point
 ├── package.json
 └── README.md
+```
 
 ---
 
@@ -127,7 +129,7 @@ Key requirements:
 
 ## 👨‍💻 Author
 
-CoreTech7704(Sarvam Patel)
+CoreTech7704(Sarvam Patel)  
 GitHub: https://github.com/CoreTech7704
 
 ---
@@ -138,8 +140,8 @@ This project is licensed under the MIT License.
 
 ---
 
-## ❤️ Closing Note
+## Closing Note
 
-Built with curiosity, discipline, and a strong focus on real-world backend engineering.
-Not just a demo — a solid foundation.
+Constructed with a strong emphasis on practical backend engineering, curiosity, and discipline.  
+ A strong foundation, not merely a demonstration.   
 Developed with ❤️, ☕, and endless curiosity 💡
